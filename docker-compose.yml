@@ -1,0 +1,11 @@
+version: '2'
+services:
+  db:
+    image: mysql:8
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: prisma
+      MYSQL_DATABASE: gnucash
+    ports:
+      - 3306:3306
