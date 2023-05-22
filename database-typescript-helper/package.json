@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@rmp135/sql-ts": "^1.16.0",
+    "mysql2": "^2.3.3"
+  }
+}

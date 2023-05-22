@@ -9,3 +9,7 @@ services:
       MYSQL_DATABASE: gnucash
     ports:
       - 3306:3306
+  redis:
+    image: redis:5-alpine
+    ports:
+      - 6379:6379
