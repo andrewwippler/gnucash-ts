@@ -39,7 +39,7 @@ Route.resource('budget-amounts', 'BudgetAmountsController')
 Route.resource('budgets', 'BudgetsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('commoditys', 'CommoditysController')
+Route.resource('commodities', 'CommoditiesController')
     .only(['index', 'show']).apiOnly()
 
 Route.resource('customers', 'CustomersController')
@@ -48,7 +48,7 @@ Route.resource('customers', 'CustomersController')
 Route.resource('employees', 'EmployeesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('entrys', 'EntrysController')
+Route.resource('entries', 'EntriesController')
     .only(['index', 'show']).apiOnly()
 
 Route.resource('gnclocks', 'GnclocksController')
@@ -81,7 +81,7 @@ Route.resource('slots', 'SlotsController')
 Route.resource('splits', 'SplitsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('taxtable-entrys', 'TaxtableEntrysController')
+Route.resource('taxtable-entries', 'TaxtableEntriesController')
     .only(['index', 'show']).apiOnly()
 
 Route.resource('taxtables', 'TaxtablesController')
