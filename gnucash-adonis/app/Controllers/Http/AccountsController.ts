@@ -9,16 +9,23 @@ export default class AccountsController {
     const limit = 50
 
 
-    const accounts = await Account.query().paginate(page, limit)
-    console.log(accounts)
+    const accounts = await Account.query()
+      .preload('accounts', (builder) => {
+      builder.orderBy('name', 'asc')
+      })
+      .preload('lot')
+      .preload('commodity')
+      .paginate(page, limit)
     return accounts.toJSON()
   }
 
   public async show({ params }: HttpContextContract) {
     const guid = params.id
-    const account = await Account.findBy('guid', guid)
+    const account = await Account.query().where('guid', guid)
+      .preload('lot')
+      .preload('commodity')
     //@ts-ignore
-    const prettyReturn = { ...account?.toJSON(), fullpath: await getParent(account)}
+    const prettyReturn = { ...account[0].toJSON(), full_path: await getParent(account[0])}
     return prettyReturn
   }
 

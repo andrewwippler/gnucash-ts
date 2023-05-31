@@ -1,4 +1,6 @@
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Lot from './Lot'
+import Commodity from './Commodity'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
@@ -33,5 +35,29 @@ export default class Account extends BaseModel {
 
   @column()
   public placeholder: number | null
+
+  @belongsTo(() => Lot, {
+    foreignKey: 'guid',
+    localKey: 'account_guid',
+  })
+  public lot: BelongsTo<typeof Lot>
+
+  @belongsTo(() => Commodity, {
+    foreignKey: 'commodity_guid',
+    localKey: 'guid',
+  })
+  public commodity: BelongsTo<typeof Commodity>
+
+  @belongsTo(() => Account, {
+    foreignKey: 'guid',
+    localKey: 'parent_guid',
+  })
+  public parent: BelongsTo<typeof Account>
+
+  @hasMany(() => Account, {
+    foreignKey: 'parent_guid',
+    localKey: 'guid',
+  })
+  public accounts: HasMany<typeof Account>
 
 }

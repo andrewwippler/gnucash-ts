@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Transaction from './Transaction'
+import Account from './Account'
 
 export default class Split extends BaseModel {
   @column({ isPrimary: true })
@@ -37,4 +39,14 @@ export default class Split extends BaseModel {
 
   @column()
   public value_num: string
+
+  @belongsTo(() => Transaction)
+  public transaction: BelongsTo<typeof Transaction>
+
+  @belongsTo(() => Account, {
+    foreignKey: 'account_guid',
+    localKey: 'guid',
+  })
+  public account: BelongsTo<typeof Account>
+
 }

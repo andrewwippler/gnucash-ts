@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Split from './Split'
 
 export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +20,10 @@ export default class Transaction extends BaseModel {
 
   @column.date()
   public post_date?: DateTime | null
+
+  @hasMany(() => Split, {
+    foreignKey: 'tx_guid',
+    localKey: 'guid',
+  })
+  public splits: HasMany<typeof Split>
 }

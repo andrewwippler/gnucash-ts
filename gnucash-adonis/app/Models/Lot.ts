@@ -1,4 +1,5 @@
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Account from './Account'
 
 export default class Lot extends BaseModel {
   @column({ isPrimary: true })
@@ -9,4 +10,7 @@ export default class Lot extends BaseModel {
 
   @column()
   public is_closed: number
+
+  @hasMany(() => Account)
+  public accounts: HasMany<typeof Account>
 }

@@ -1,10 +1,16 @@
 import Account from "App/Models/Account";
-import { accountsEntity } from "Database/Database";
 
-export async function getParent(item: accountsEntity) {
-  if (item?.parent_guid) {
+
+export async function getParent(item: Account) {
+
+  return String(await realGetParent(item)).substring(5);
+
+}
+
+async function realGetParent(item: Account) {
+  if (item?.parent_guid && item.name) {
     //@ts-ignore
-    return await getParent(await Account.findBy('guid', item.parent_guid))+ ":" + item.name
+    return await realGetParent(await Account.findBy('guid', item.parent_guid))+ ":" + item.name
   }
   return "root"
 
