@@ -6,6 +6,13 @@ Currently, This is a READ ONLY API. I am not intending to replace the GUI of Gnu
 
 These days, I find myself working with two currencies (USD and EUR). I want to extend the scheduled transactions to work across currencies, and this is the only way I know how to do it. Theoretically, one can make a mobile app to connect to this API and one could have GNUCash on their mobile device.
 
+## Work In Progress
+
+- [] Finish connecting database relationships
+- [] Tests and sample data
+- [] Docker container build process
+- [] SQLite support (and default in the Docker container)
+
 ## Routes
 
 ```
