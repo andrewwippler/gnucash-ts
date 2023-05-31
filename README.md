@@ -8,10 +8,10 @@ These days, I find myself working with two currencies (USD and EUR). I want to e
 
 ## Work In Progress
 
-- [] Finish connecting database relationships
-- [] Tests and sample data
-- [] Docker container build process
-- [] SQLite support (and default in the Docker container)
+- [ ] Finish connecting database relationships
+- [ ] Tests and sample data
+- [ ] Docker container build process
+- [ ] SQLite support (and default in the Docker container)
 
 ## Routes
 
