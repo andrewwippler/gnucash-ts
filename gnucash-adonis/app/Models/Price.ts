@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
+import { v4 } from 'uuid'
 
 export default class Price extends BaseModel {
   @column({ isPrimary: true })
@@ -25,4 +26,9 @@ export default class Price extends BaseModel {
 
   @column()
   public value_num: string
+
+  @beforeCreate()
+  public static generateuuid(price: Price) {
+    price.guid = v4().replace(/-/g,'')
+  }
 }

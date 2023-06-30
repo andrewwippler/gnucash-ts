@@ -67,7 +67,7 @@ Route.resource('orders', 'OrdersController')
     .only(['index', 'show']).apiOnly()
 
 Route.resource('prices', 'PricesController')
-    .only(['index', 'show']).apiOnly()
+    .only(['index', 'show', 'store']).apiOnly()
 
 Route.resource('recurrences', 'RecurrencesController')
     .only(['index', 'show']).apiOnly()
@@ -95,5 +95,3 @@ Route.resource('vendors', 'VendorsController')
 
 Route.resource('versions', 'VersionsController')
     .only(['index']).apiOnly()
-
-

@@ -1,5 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Price from 'App/Models/Price'
+import PriceValidator from 'App/Validators/PriceValidator'
+import { DateTime } from 'luxon'
 
 export default class PricesController {
   public async index({ request }: HttpContextContract) {
@@ -20,7 +22,20 @@ export default class PricesController {
 
   public async create({}: HttpContextContract) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store({ request, response }: HttpContextContract) {
+    const { commodity_guid, currency_guid, date, source = 'user:price', type = null, value_num, value_denom } = request.all()
+
+    await request.validate(PriceValidator)
+    if (value_num.length != value_denom.length) {
+      return response.status(422).send({errors: [{message: "value_num and value_denom must be the same length"}]})
+    }
+    //TODO: ensure commodity_guid, currency_guid, source, and date are unique
+
+    const price = await new Price().fill({ commodity_guid, currency_guid, date, source, type, value_num, value_denom }).save()
+
+    return price
+
+  }
 
   public async edit({}: HttpContextContract) {}
 
