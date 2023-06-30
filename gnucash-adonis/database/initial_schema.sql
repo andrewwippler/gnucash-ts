@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `recurrences` (
   `recurrence_period_start` date NOT NULL,
   `recurrence_weekend_adjust` varchar(2048) NOT NULL,
   PRIMARY KEY (`id`)
-)
+);
 
 CREATE TABLE IF NOT EXISTS `schedxactions` (
   `guid` varchar(32) NOT NULL,
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `slots` (
   `gdate_val` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `slots_guid_index` (`obj_guid`)
-)
+);
 
 CREATE TABLE IF NOT EXISTS `splits` (
   `guid` varchar(32) NOT NULL,
