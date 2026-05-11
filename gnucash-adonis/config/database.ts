@@ -6,8 +6,7 @@
  */
 
 import env from '#start/env'
-import { DatabaseConfig } from "@adonisjs/lucid/database";
-import { defineConfig } from "@adonisjs/lucid";
+import { defineConfig } from '@adonisjs/lucid'
 
 const databaseConfig = defineConfig({
   /*
@@ -46,11 +45,9 @@ const databaseConfig = defineConfig({
       migrations: {
         naturalSort: true,
       },
-      healthCheck: true,
       debug: true,
     },
-
-  }
+  },
 })
 
 export default databaseConfig

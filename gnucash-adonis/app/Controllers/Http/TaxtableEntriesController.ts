@@ -14,7 +14,7 @@ export default class TaxtableEntriesController {
   public async show({ params }: HttpContext) {
     const id = params.id
     const taxtableEntries = await TaxtableEntry.findBy('id', id)
-    const prettyReturn = { ...taxtableEntries?.toJSON()}
+    const prettyReturn = { ...taxtableEntries?.toJSON() }
     return prettyReturn
   }
 

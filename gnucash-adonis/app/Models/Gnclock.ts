@@ -1,4 +1,3 @@
-
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class Gnclock extends BaseModel {
@@ -9,5 +8,4 @@ export default class Gnclock extends BaseModel {
 
   @column()
   public PID: number | null
-
 }

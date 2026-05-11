@@ -6,7 +6,7 @@
  */
 
 import env from '#start/env'
-import { redisConfig } from '@adonisjs/redis/build/config'
+import { defineConfig } from '@adonisjs/redis'
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ import { redisConfig } from '@adonisjs/redis/build/config'
 |
 | Make sure to check `contracts/redis.ts` file for defining extra connections
 */
-export default redisConfig({
+export default defineConfig({
   connection: env.get('REDIS_CONNECTION'),
 
   connections: {

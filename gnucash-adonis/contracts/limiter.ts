@@ -1,17 +1,9 @@
-/**
- * Contract source: https://bit.ly/3IPyj8d
- *
- * Feel free to let us know via PR, if you find something broken in this contract
- * file.
- */
+import type { LimiterManagerStoreFactory } from '@adonisjs/limiter/types'
 
-import type defineConfig from '../config/limiter.js'
+type ResolvedStores = {
+  redis: LimiterManagerStoreFactory
+}
 
-declare module '@adonisjs/limiter/build/services/index' {
-  type Config = typeof defineConfig['stores']
-
-  /**
-   * Compute limiter stores from the config file
-   */
-  export interface LimiterStores extends Config {}
+declare module '@adonisjs/limiter/types' {
+  interface LimitersList extends ResolvedStores {}
 }

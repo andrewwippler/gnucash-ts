@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import Transaction from './Transaction.js'
 import Account from './Account.js'
-import { BelongsTo } from "@adonisjs/lucid/types/relations";
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Split extends BaseModel {
   @column({ isPrimary: true })
@@ -49,5 +49,4 @@ export default class Split extends BaseModel {
     localKey: 'guid',
   })
   public account: BelongsTo<typeof Account>
-
 }

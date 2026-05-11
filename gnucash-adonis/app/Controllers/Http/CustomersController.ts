@@ -14,7 +14,7 @@ export default class CustomersController {
   public async show({ params }: HttpContext) {
     const guid = params.id
     const customer = await Customer.findBy('guid', guid)
-    const prettyReturn = { ...customer?.toJSON()}
+    const prettyReturn = { ...customer?.toJSON() }
     return prettyReturn
   }
 

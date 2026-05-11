@@ -14,7 +14,7 @@ export default class SchedxactionsController {
   public async show({ params }: HttpContext) {
     const guid = params.id
     const schedxactions = await Schedxaction.findBy('guid', guid)
-    const prettyReturn = { ...schedxactions?.toJSON()}
+    const prettyReturn = { ...schedxactions?.toJSON() }
     return prettyReturn
   }
 

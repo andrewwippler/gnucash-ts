@@ -11,7 +11,6 @@ export default class VersionsController {
     return versions.toJSON()
   }
 
-
   public async create({}: HttpContext) {}
 
   public async store({}: HttpContext) {}

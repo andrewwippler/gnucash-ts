@@ -1,8 +1,7 @@
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import Lot from './Lot.js'
 import Commodity from './Commodity.js'
-import { BelongsTo } from "@adonisjs/lucid/types/relations";
-import { HasMany } from "@adonisjs/lucid/types/relations";
+import { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })
@@ -61,5 +60,4 @@ export default class Account extends BaseModel {
     localKey: 'guid',
   })
   public accounts: HasMany<typeof Account>
-
 }

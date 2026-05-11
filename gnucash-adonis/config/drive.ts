@@ -6,7 +6,6 @@
  */
 
 import env from '#start/env'
-import { driveConfig } from '@adonisjs/core/build/config'
 import app from '@adonisjs/core/services/app'
 
 /*
@@ -18,7 +17,7 @@ import app from '@adonisjs/core/services/app'
 | defined inside the `contracts` directory.
 |
 */
-export default driveConfig({
+export default {
   /*
   |--------------------------------------------------------------------------
   | Default disk
@@ -146,4 +145,4 @@ export default driveConfig({
     //   usingUniformAcl: false,
     // },
   },
-})
+}

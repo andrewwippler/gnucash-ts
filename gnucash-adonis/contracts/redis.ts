@@ -1,13 +1,6 @@
-/**
- * Contract source: https://git.io/JemcN
- *
- * Feel free to let us know via PR, if you find something broken in this config
- * file.
- */
+import type { InferConnections } from '@adonisjs/redis/types'
+import type redisConfig from '../config/redis.js'
 
-import { InferConnectionsFromConfig } from '@adonisjs/redis/build/config'
-import redisConfig from '../config/redis.js'
-
-declare module '@ioc:Adonis/Addons/Redis' {
-  interface RedisConnectionsList extends InferConnectionsFromConfig<typeof redisConfig> {}
+declare module '@adonisjs/redis/types' {
+  interface RedisConnections extends InferConnections<typeof redisConfig> {}
 }

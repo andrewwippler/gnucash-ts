@@ -14,7 +14,7 @@ export default class BilltermsController {
   public async show({ params }: HttpContext) {
     const guid = params.id
     const billterm = await Billterm.findBy('guid', guid)
-    const prettyReturn = { ...billterm?.toJSON()}
+    const prettyReturn = { ...billterm?.toJSON() }
     return prettyReturn
   }
 

@@ -2,16 +2,14 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { getParent } from '#app/Helpers/AccountHelpers'
 import Account from '#app/Models/Account'
 
-
 export default class AccountsController {
   public async index({ request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 50
 
-
     const accounts = await Account.query()
       .preload('accounts', (builder) => {
-      builder.orderBy('name', 'asc')
+        builder.orderBy('name', 'asc')
       })
       .preload('lot')
       .preload('commodity')
@@ -21,11 +19,9 @@ export default class AccountsController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const account = await Account.query().where('guid', guid)
-      .preload('lot')
-      .preload('commodity')
+    const account = await Account.query().where('guid', guid).preload('lot').preload('commodity')
     //@ts-ignore
-    const prettyReturn = { ...account[0].toJSON(), full_path: await getParent(account[0])}
+    const prettyReturn = { ...account[0].toJSON(), full_path: await getParent(account[0]) }
     return prettyReturn
   }
 

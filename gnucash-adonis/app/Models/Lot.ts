@@ -1,6 +1,6 @@
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import Account from './Account.js'
-import { HasMany } from "@adonisjs/lucid/types/relations";
+import { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Lot extends BaseModel {
   @column({ isPrimary: true })

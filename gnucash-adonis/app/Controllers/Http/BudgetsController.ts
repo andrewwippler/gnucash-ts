@@ -14,7 +14,7 @@ export default class BudgetsController {
   public async show({ params }: HttpContext) {
     const guid = params.id
     const budget = await Budget.findBy('guid', guid)
-    const prettyReturn = { ...budget?.toJSON()}
+    const prettyReturn = { ...budget?.toJSON() }
     return prettyReturn
   }
 

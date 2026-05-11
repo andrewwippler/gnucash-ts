@@ -14,7 +14,7 @@ export default class BooksController {
   public async show({ params }: HttpContext) {
     const guid = params.id
     const book = await Book.findBy('guid', guid)
-    const prettyReturn = { ...book?.toJSON()}
+    const prettyReturn = { ...book?.toJSON() }
     return prettyReturn
   }
 
