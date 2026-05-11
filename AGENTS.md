@@ -23,7 +23,7 @@ npm run coverage       # c8 check-coverage --lines 95 node ./test.ts && c8 repor
 ## Database
 
 - The app connects to an **existing GnuCash MySQL database** — Lucid does **not** own the schema. No `migration:run` at setup.
-- `database/initial_schema.sql` documents the expected GnuCash 5.1 schema (informational only; actual schema comes from GnuCash).
+- `database/initial_schema.sql` documents the expected GnuCash 5.15 schema (informational only; actual schema comes from GnuCash).
 - `database/Database.ts` contains auto-generated TypeScript interfaces (`sql-ts`); refresh via `database-typescript-helper/`.
 - Models use `guid` (string) as primary key, not auto-increment integers.
 

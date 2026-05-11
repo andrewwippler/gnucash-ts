@@ -1,4 +1,4 @@
--- gnucash 5.1 22.5.2023
+-- gnucash 5.15 29.3.2026
 SET sql_notes = 0;
 CREATE TABLE IF NOT EXISTS `accounts` (
   `guid` varchar(32) NOT NULL,
@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `recurrences` (
   `recurrence_period_start` date NOT NULL,
   `recurrence_weekend_adjust` varchar(2048) NOT NULL,
   PRIMARY KEY (`id`)
-)
+);
 
 CREATE TABLE IF NOT EXISTS `schedxactions` (
   `guid` varchar(32) NOT NULL,
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `slots` (
   `gdate_val` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `slots_guid_index` (`obj_guid`)
-)
+);
 
 CREATE TABLE IF NOT EXISTS `splits` (
   `guid` varchar(32) NOT NULL,

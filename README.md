@@ -95,7 +95,7 @@ GET  /versions                          Paginated list (index only)
 
 ## Database Schema
 
-The schema is the standard GnuCash 5.1 schema. The app uses Lucid ORM models with full relationship mappings (see `app/Models/`). A schema-only reference is at `database/initial_schema.sql`.
+The schema is the standard GnuCash 5.15 schema. The app uses Lucid ORM models with full relationship mappings (see `app/Models/`). A schema-only reference is at `database/initial_schema.sql`.
 
 Migrations for all 24 tables live in `database/migrations/` and work on PostgreSQL, MySQL, and SQLite. Run:
 
