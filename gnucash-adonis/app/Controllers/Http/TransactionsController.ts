@@ -1,9 +1,9 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { getParent } from 'App/Helpers/AccountHelpers'
-import Transaction from 'App/Models/Transaction'
+import type { HttpContext } from '@adonisjs/core/http'
+import { getParent } from '#app/Helpers/AccountHelpers'
+import Transaction from '#app/Models/Transaction'
 
 export default class TransactionsController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 500
 
@@ -13,7 +13,7 @@ export default class TransactionsController {
     return transactions
   }
 
-  public async show({ params, response }: HttpContextContract) {
+  public async show({ params, response }: HttpContext) {
     const guid = params.id
     const transactions = await Transaction.query()
       .where('guid', guid)
@@ -39,13 +39,13 @@ export default class TransactionsController {
 
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({}: HttpContext) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store({}: HttpContext) {}
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({}: HttpContext) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({}: HttpContext) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({}: HttpContext) {}
 }

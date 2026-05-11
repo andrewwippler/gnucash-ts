@@ -1,6 +1,8 @@
-import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Lot from './Lot'
-import Commodity from './Commodity'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import Lot from './Lot.js'
+import Commodity from './Commodity.js'
+import { BelongsTo } from "@adonisjs/lucid/types/relations";
+import { HasMany } from "@adonisjs/lucid/types/relations";
 
 export default class Account extends BaseModel {
   @column({ isPrimary: true })

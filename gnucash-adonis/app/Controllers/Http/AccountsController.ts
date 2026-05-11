@@ -1,10 +1,10 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { getParent } from 'App/Helpers/AccountHelpers'
-import Account from 'App/Models/Account'
+import type { HttpContext } from '@adonisjs/core/http'
+import { getParent } from '#app/Helpers/AccountHelpers'
+import Account from '#app/Models/Account'
 
 
 export default class AccountsController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 50
 
@@ -19,7 +19,7 @@ export default class AccountsController {
     return accounts.toJSON()
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params }: HttpContext) {
     const guid = params.id
     const account = await Account.query().where('guid', guid)
       .preload('lot')
@@ -29,13 +29,13 @@ export default class AccountsController {
     return prettyReturn
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({}: HttpContext) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store({}: HttpContext) {}
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({}: HttpContext) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({}: HttpContext) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({}: HttpContext) {}
 }

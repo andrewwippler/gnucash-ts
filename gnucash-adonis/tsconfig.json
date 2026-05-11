@@ -1,5 +1,5 @@
 {
-  "extends": "adonis-preset-ts/tsconfig.json",
+  "extends": "@adonisjs/tsconfig/tsconfig.app.json",
   "include": [
     "**/*"
   ],
@@ -12,26 +12,47 @@
     "rootDir": "./",
     "sourceMap": true,
     "paths": {
-      "App/*": [
-        "./app/*"
+      "#controllers/*": [
+        "./app/controllers/*.js"
       ],
-      "Config/*": [
-        "./config/*"
+      "#exceptions/*": [
+        "./app/exceptions/*.js"
       ],
-      "Contracts/*": [
-        "./contracts/*"
+      "#models/*": [
+        "./app/models/*.js"
       ],
-      "Database/*": [
-        "./database/*"
+      "#services/*": [
+        "./app/services/*.js"
+      ],
+      "#listeners/*": [
+        "./app/listeners/*.js"
+      ],
+      "#events/*": [
+        "./app/events/*.js"
+      ],
+      "#middleware/*": [
+        "./app/middleware/*.js"
+      ],
+      "#validators/*": [
+        "./app/validators/*.js"
+      ],
+      "#start/*": [
+        "./start/*.js"
+      ],
+      "#config/*": [
+        "./config/*.js"
+      ],
+      "#app/*": [
+        "./app/*.js"
+      ],
+      "#database/*": [
+        "./database/*.js"
+      ],
+      "#contracts/*": [
+        "./contracts/*.js"
       ]
     },
-    "types": [
-      "@adonisjs/core",
-      "@adonisjs/repl",
-      "@japa/preset-adonis/build/adonis-typings",
-      "@adonisjs/redis",
-      "@adonisjs/limiter",
-      "@adonisjs/lucid"
-    ]
+    "types": [],
+    "strictPropertyInitialization": false
   }
 }

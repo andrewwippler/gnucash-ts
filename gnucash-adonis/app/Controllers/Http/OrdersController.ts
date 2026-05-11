@@ -1,8 +1,8 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Order from 'App/Models/Order'
+import type { HttpContext } from '@adonisjs/core/http'
+import Order from '#app/Models/Order'
 
 export default class OrdersController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 50
 
@@ -11,20 +11,20 @@ export default class OrdersController {
     return orders.toJSON()
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params }: HttpContext) {
     const guid = params.id
     const orders = await Order.findBy('guid', guid)
     const prettyReturn = { ...orders?.toJSON() }
     return prettyReturn
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({}: HttpContext) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store({}: HttpContext) {}
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({}: HttpContext) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({}: HttpContext) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({}: HttpContext) {}
 }

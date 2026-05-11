@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Order from './Order'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import Order from './Order.js'
+import { HasMany } from "@adonisjs/lucid/types/relations";
 
 export default class Entry extends BaseModel {
   @column({ isPrimary: true })

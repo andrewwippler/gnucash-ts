@@ -18,82 +18,82 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import router from '@adonisjs/core/services/router'
 
-Route.get('/', async () => {
+router.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.resource('accounts', 'AccountsController')
+router.resource('accounts', 'AccountsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('billterms', 'BilltermsController')
+router.resource('billterms', 'BilltermsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('books', 'BooksController')
+router.resource('books', 'BooksController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('budget-amounts', 'BudgetAmountsController')
+router.resource('budget-amounts', 'BudgetAmountsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('budgets', 'BudgetsController')
+router.resource('budgets', 'BudgetsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('commodities', 'CommoditiesController')
+router.resource('commodities', 'CommoditiesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('customers', 'CustomersController')
+router.resource('customers', 'CustomersController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('employees', 'EmployeesController')
+router.resource('employees', 'EmployeesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('entries', 'EntriesController')
+router.resource('entries', 'EntriesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('gnclocks', 'GnclocksController')
+router.resource('gnclocks', 'GnclocksController')
     .only(['index']).apiOnly()
 
-Route.resource('invoices', 'InvoicesController')
+router.resource('invoices', 'InvoicesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('jobs', 'JobsController')
+router.resource('jobs', 'JobsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('lots', 'LotsController')
+router.resource('lots', 'LotsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('orders', 'OrdersController')
+router.resource('orders', 'OrdersController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('prices', 'PricesController')
+router.resource('prices', 'PricesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('recurrences', 'RecurrencesController')
+router.resource('recurrences', 'RecurrencesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('schedxactions', 'SchedxactionsController')
+router.resource('schedxactions', 'SchedxactionsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('slots', 'SlotsController')
+router.resource('slots', 'SlotsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('splits', 'SplitsController')
+router.resource('splits', 'SplitsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('taxtable-entries', 'TaxtableEntriesController')
+router.resource('taxtable-entries', 'TaxtableEntriesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('taxtables', 'TaxtablesController')
+router.resource('taxtables', 'TaxtablesController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('transactions', 'TransactionsController')
+router.resource('transactions', 'TransactionsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('vendors', 'VendorsController')
+router.resource('vendors', 'VendorsController')
     .only(['index', 'show']).apiOnly()
 
-Route.resource('versions', 'VersionsController')
+router.resource('versions', 'VersionsController')
     .only(['index']).apiOnly()
 
 

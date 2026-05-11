@@ -1,8 +1,8 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import TaxtableEntry from 'App/Models/TaxtableEntry'
+import type { HttpContext } from '@adonisjs/core/http'
+import TaxtableEntry from '#app/Models/TaxtableEntry'
 
 export default class TaxtableEntriesController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 50
 
@@ -11,20 +11,20 @@ export default class TaxtableEntriesController {
     return taxtableEntries.toJSON()
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params }: HttpContext) {
     const id = params.id
     const taxtableEntries = await TaxtableEntry.findBy('id', id)
     const prettyReturn = { ...taxtableEntries?.toJSON()}
     return prettyReturn
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({}: HttpContext) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store({}: HttpContext) {}
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({}: HttpContext) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({}: HttpContext) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({}: HttpContext) {}
 }

@@ -1,4 +1,4 @@
-import Account from "App/Models/Account";
+import Account from "#app/Models/Account";
 
 
 export async function getParent(item: Account) {

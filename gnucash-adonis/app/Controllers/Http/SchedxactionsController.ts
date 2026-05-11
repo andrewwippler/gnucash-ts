@@ -1,8 +1,8 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Schedxaction from 'App/Models/Schedxaction'
+import type { HttpContext } from '@adonisjs/core/http'
+import Schedxaction from '#app/Models/Schedxaction'
 
 export default class SchedxactionsController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 50
 
@@ -11,20 +11,20 @@ export default class SchedxactionsController {
     return schedxactions.toJSON()
   }
 
-  public async show({ params }: HttpContextContract) {
+  public async show({ params }: HttpContext) {
     const guid = params.id
     const schedxactions = await Schedxaction.findBy('guid', guid)
     const prettyReturn = { ...schedxactions?.toJSON()}
     return prettyReturn
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({}: HttpContext) {}
 
-  public async store({}: HttpContextContract) {}
+  public async store({}: HttpContext) {}
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({}: HttpContext) {}
 
-  public async update({}: HttpContextContract) {}
+  public async update({}: HttpContext) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({}: HttpContext) {}
 }

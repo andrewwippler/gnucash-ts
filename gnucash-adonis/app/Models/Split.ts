@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Transaction from './Transaction'
-import Account from './Account'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Transaction from './Transaction.js'
+import Account from './Account.js'
+import { BelongsTo } from "@adonisjs/lucid/types/relations";
 
 export default class Split extends BaseModel {
   @column({ isPrimary: true })
