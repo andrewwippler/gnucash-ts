@@ -1,6 +1,10 @@
 import { defineConfig } from '@adonisjs/core/app'
+import { indexEntities } from '@adonisjs/core'
 
 export default defineConfig({
+  hooks: {
+    init: [indexEntities()],
+  },
   /*
   |--------------------------------------------------------------------------
   | Commands
@@ -55,7 +59,7 @@ export default defineConfig({
     suites: [
       {
         name: 'functional',
-        files: ['tests/functional/**/*.spec(.ts|.js)'],
+        files: ['tests/functional/**/*.spec.{ts,js}'],
         timeout: 60000,
       },
     ],

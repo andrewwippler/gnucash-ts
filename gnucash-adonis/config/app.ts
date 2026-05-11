@@ -1,8 +1,5 @@
 import proxyAddr from 'proxy-addr'
-import env from '#start/env'
 import { defineConfig } from '@adonisjs/core/http'
-
-export const appKey: string = env.get('APP_KEY')
 
 export const http = defineConfig({
   allowMethodSpoofing: false,
