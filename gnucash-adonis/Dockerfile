@@ -1,5 +1,5 @@
 # From https://docs.adonisjs.com/cookbooks/dockerizing-adonis
-ARG NODE_IMAGE=node:18-alpine
+ARG NODE_IMAGE=node:24-alpine
 
 FROM $NODE_IMAGE AS base
 RUN apk --no-cache add dumb-init
@@ -22,6 +22,8 @@ ENV NODE_ENV=production
 ENV PORT=3333
 ENV APP_NAME=GnucashAdonisAPI
 ENV APP_URL=http://${HOST}:${PORT}
+ENV DB_CONNECTION=sqlite
+ENV SQLITE_PATH=tmp/gnucash.sqlite
 ENV HASH_DRIVER=bcrypt
 COPY --chown=node:node ./package*.json ./
 RUN npm ci --omit=dev

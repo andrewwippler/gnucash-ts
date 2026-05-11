@@ -13,8 +13,12 @@ export default class EmployeesController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const employees = await Employee.findBy('guid', guid)
-    const prettyReturn = { ...employees?.toJSON() }
+    const employee = await Employee.query()
+      .where('guid', guid)
+      .preload('currencyRel')
+      .preload('ccardAccount')
+      .first()
+    const prettyReturn = { ...employee?.toJSON() }
     return prettyReturn
   }
 

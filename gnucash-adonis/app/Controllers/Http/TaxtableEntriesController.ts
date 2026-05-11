@@ -13,8 +13,12 @@ export default class TaxtableEntriesController {
 
   public async show({ params }: HttpContext) {
     const id = params.id
-    const taxtableEntries = await TaxtableEntry.findBy('id', id)
-    const prettyReturn = { ...taxtableEntries?.toJSON() }
+    const taxtableEntry = await TaxtableEntry.query()
+      .where('id', id)
+      .preload('taxtableRel')
+      .preload('accountRel')
+      .first()
+    const prettyReturn = { ...taxtableEntry?.toJSON() }
     return prettyReturn
   }
 

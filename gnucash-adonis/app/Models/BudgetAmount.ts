@@ -1,4 +1,7 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Account from './Account.js'
+import Budget from './Budget.js'
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class BudgetAmount extends BaseModel {
   @column({ isPrimary: true })
@@ -18,4 +21,16 @@ export default class BudgetAmount extends BaseModel {
 
   @column()
   public period_num: number
+
+  @belongsTo(() => Account, {
+    foreignKey: 'account_guid',
+    localKey: 'guid',
+  })
+  public account: BelongsTo<typeof Account>
+
+  @belongsTo(() => Budget, {
+    foreignKey: 'budget_guid',
+    localKey: 'guid',
+  })
+  public budget: BelongsTo<typeof Budget>
 }

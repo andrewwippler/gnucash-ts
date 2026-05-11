@@ -6,14 +6,21 @@ export default class SplitsController {
     const page = request.input('page', 1)
     const limit = 50
 
-    const splits = await Split.query().paginate(page, limit)
-    // console.log(splits)
+    const splits = await Split.query()
+      .preload('account')
+      .preload('transaction')
+      .paginate(page, limit)
     return splits.toJSON()
   }
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const splits = await Split.findBy('guid', guid)
+    const splits = await Split.query()
+      .where('guid', guid)
+      .preload('account')
+      .preload('transaction')
+      .preload('lot')
+      .first()
     const prettyReturn = { ...splits?.toJSON() }
     return prettyReturn
   }

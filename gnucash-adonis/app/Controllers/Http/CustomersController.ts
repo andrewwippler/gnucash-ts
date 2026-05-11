@@ -13,7 +13,12 @@ export default class CustomersController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const customer = await Customer.findBy('guid', guid)
+    const customer = await Customer.query()
+      .where('guid', guid)
+      .preload('currencyRel')
+      .preload('taxtableRel')
+      .preload('termsRel')
+      .first()
     const prettyReturn = { ...customer?.toJSON() }
     return prettyReturn
   }

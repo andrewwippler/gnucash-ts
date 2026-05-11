@@ -1,5 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import Account from './Account.js'
+import Recurrence from './Recurrence.js'
+import { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Schedxaction extends BaseModel {
   @column({ isPrimary: true })
@@ -43,4 +46,16 @@ export default class Schedxaction extends BaseModel {
 
   @column()
   public template_act_guid: string
+
+  @belongsTo(() => Account, {
+    foreignKey: 'template_act_guid',
+    localKey: 'guid',
+  })
+  public templateAccount: BelongsTo<typeof Account>
+
+  @hasMany(() => Recurrence, {
+    foreignKey: 'obj_guid',
+    localKey: 'guid',
+  })
+  public recurrences: HasMany<typeof Recurrence>
 }

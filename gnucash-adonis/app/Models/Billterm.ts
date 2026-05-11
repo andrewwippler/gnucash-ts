@@ -1,4 +1,5 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Billterm extends BaseModel {
   @column({ isPrimary: true })
@@ -36,4 +37,10 @@ export default class Billterm extends BaseModel {
 
   @column()
   public type: string
+
+  @belongsTo(() => Billterm, {
+    foreignKey: 'parent',
+    localKey: 'guid',
+  })
+  public parentRel: BelongsTo<typeof Billterm>
 }

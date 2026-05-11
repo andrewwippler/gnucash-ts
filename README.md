@@ -1,70 +1,150 @@
 # GnuCash TypeScript API
 
-Here is an AdonisJS application that can point to a MySQL (tested), PostgreSQL (untested), or SQLite3 (untested) GnuCash database.
+Read-only REST API over a GnuCash database, built with [AdonisJS 7](https://adonisjs.com/). Supports **PostgreSQL**, **MySQL**, and **SQLite**.
 
-Currently, This is a READ ONLY API. I am not intending to replace the GUI of GnuCash.
+The goal is to enable multi-currency scheduled transaction workflows and provide a backend for a mobile GnuCash companion app — without replacing the GnuCash GUI.
 
-These days, I find myself working with two currencies (USD and EUR). I want to extend the scheduled transactions to work across currencies, and this is the only way I know how to do it. Theoretically, one can make a mobile app to connect to this API and one could have GNUCash on their mobile device.
+## Database Support
 
-## Work In Progress
+| Database | Status |
+|---|---|
+| PostgreSQL | Default |
+| MySQL | Supported |
+| SQLite | Supported (default in Docker) |
 
-- [ ] Finish connecting database relationships
-- [ ] Tests and sample data
-- [ ] Docker container build process
-- [ ] SQLite support (and default in the Docker container)
+Set `DB_CONNECTION` to `pg`, `mysql`, or `sqlite` with the corresponding env vars.
+
+## Quick Start
+
+```sh
+# Start PostgreSQL + Redis
+docker compose up -d db redis
+
+# Install, migrate, seed
+cd gnucash-adonis
+npm install
+node ace migration:run
+node ace db:seed
+
+# Start dev server
+npm run dev
+```
+
+Or with SQLite (no external deps):
+
+```sh
+DB_CONNECTION=sqlite SQLITE_PATH=tmp/gnucash.sqlite node ace migration:run
+npm run dev
+```
 
 ## Routes
 
+All resources expose `GET /:resource` (paginated index) and `GET /:resource/:id` (show by guid). Two are index-only (gnclocks, versions).
+
 ```
-GET|HEAD    /uploads/* ───────────────────────────────────────── drive.local.serve › Closure
-GET|HEAD    / ────────────────────────────────────────────────────────────────────── Closure
-GET|HEAD    /accounts ──────────────────────────── accounts.index › AccountsController.index
-GET|HEAD    /accounts/:id ────────────────────────── accounts.show › AccountsController.show
-GET|HEAD    /billterms ───────────────────────── billterms.index › BilltermsController.index
-GET|HEAD    /billterms/:id ─────────────────────── billterms.show › BilltermsController.show
-GET|HEAD    /books ───────────────────────────────────── books.index › BooksController.index
-GET|HEAD    /books/:id ─────────────────────────────────── books.show › BooksController.show
-GET|HEAD    /budget-amounts ─────────── budget_amounts.index › BudgetAmountsController.index
-GET|HEAD    /budget-amounts/:id ───────── budget_amounts.show › BudgetAmountsController.show
-GET|HEAD    /budgets ─────────────────────────────── budgets.index › BudgetsController.index
-GET|HEAD    /budgets/:id ───────────────────────────── budgets.show › BudgetsController.show
-GET|HEAD    /commodities ─────────────────── commodities.index › CommoditiesController.index
-GET|HEAD    /commodities/:id ───────────────── commodities.show › CommoditiesController.show
-GET|HEAD    /customers ───────────────────────── customers.index › CustomersController.index
-GET|HEAD    /customers/:id ─────────────────────── customers.show › CustomersController.show
-GET|HEAD    /employees ───────────────────────── employees.index › EmployeesController.index
-GET|HEAD    /employees/:id ─────────────────────── employees.show › EmployeesController.show
-GET|HEAD    /entries ─────────────────────────────── entries.index › EntriesController.index
-GET|HEAD    /entries/:id ───────────────────────────── entries.show › EntriesController.show
-GET|HEAD    /gnclocks ──────────────────────────── gnclocks.index › GnclocksController.index
-GET|HEAD    /invoices ──────────────────────────── invoices.index › InvoicesController.index
-GET|HEAD    /invoices/:id ────────────────────────── invoices.show › InvoicesController.show
-GET|HEAD    /jobs ──────────────────────────────────────── jobs.index › JobsController.index
-GET|HEAD    /jobs/:id ────────────────────────────────────── jobs.show › JobsController.show
-GET|HEAD    /lots ──────────────────────────────────────── lots.index › LotsController.index
-GET|HEAD    /lots/:id ────────────────────────────────────── lots.show › LotsController.show
-GET|HEAD    /orders ────────────────────────────────── orders.index › OrdersController.index
-GET|HEAD    /orders/:id ──────────────────────────────── orders.show › OrdersController.show
-GET|HEAD    /prices ────────────────────────────────── prices.index › PricesController.index
-GET|HEAD    /prices/:id ──────────────────────────────── prices.show › PricesController.show
-GET|HEAD    /recurrences ─────────────────── recurrences.index › RecurrencesController.index
-GET|HEAD    /recurrences/:id ───────────────── recurrences.show › RecurrencesController.show
-GET|HEAD    /schedxactions ───────────── schedxactions.index › SchedxactionsController.index
-GET|HEAD    /schedxactions/:id ─────────── schedxactions.show › SchedxactionsController.show
-GET|HEAD    /slots ───────────────────────────────────── slots.index › SlotsController.index
-GET|HEAD    /slots/:id ─────────────────────────────────── slots.show › SlotsController.show
-GET|HEAD    /splits ────────────────────────────────── splits.index › SplitsController.index
-GET|HEAD    /splits/:id ──────────────────────────────── splits.show › SplitsController.show
-GET|HEAD    /taxtable-entries ───── taxtable_entries.index › TaxtableEntriesController.index
-GET|HEAD    /taxtable-entries/:id ─── taxtable_entries.show › TaxtableEntriesController.show
-GET|HEAD    /taxtables ───────────────────────── taxtables.index › TaxtablesController.index
-GET|HEAD    /taxtables/:id ─────────────────────── taxtables.show › TaxtablesController.show
-GET|HEAD    /transactions ──────────────── transactions.index › TransactionsController.index
-GET|HEAD    /transactions/:id ────────────── transactions.show › TransactionsController.show
-GET|HEAD    /vendors ─────────────────────────────── vendors.index › VendorsController.index
-GET|HEAD    /vendors/:id ───────────────────────────── vendors.show › VendorsController.show
-GET|HEAD    /versions ──────────────────────────── versions.index › VersionsController.index
+GET  /                                  Health check
+GET  /accounts                          Paginated list
+GET  /accounts/:id                      Single account with commodity, children, lots, splits
+GET  /billterms                         Paginated list
+GET  /billterms/:id                     Single billterm
+GET  /books                             Paginated list
+GET  /books/:id                         Single book
+GET  /budget-amounts                    Paginated list
+GET  /budget-amounts/:id                Single budget amount with account + budget
+GET  /budgets                           Paginated list
+GET  /budgets/:id                       Single budget with budget amounts
+GET  /commodities                       Paginated list
+GET  /commodities/:id                   Single commodity with accounts, prices, transactions
+GET  /customers                         Paginated list
+GET  /customers/:id                     Single customer with currency, taxtable, terms
+GET  /employees                         Paginated list
+GET  /employees/:id                     Single employee with currency + ccard account
+GET  /entries                           Paginated list
+GET  /entries/:id                       Single entry with order, invoice, accounts, taxtables
+GET  /gnclocks                          Paginated list (index only)
+GET  /invoices                          Paginated list
+GET  /invoices/:id                      Single invoice with currency, txn, lot, account, entries
+GET  /jobs                              Paginated list
+GET  /jobs/:id                          Single job
+GET  /lots                              Paginated list
+GET  /lots/:id                          Single lot with account + splits
+GET  /orders                            Paginated list
+GET  /orders/:id                        Single order with entries
+GET  /prices                            Paginated list
+GET  /prices/:id                        Single price with commodity + currency
+GET  /recurrences                       Paginated list
+GET  /recurrences/:id                   Single recurrence with schedxaction
+GET  /schedxactions                     Paginated list
+GET  /schedxactions/:id                 Single schedxaction with template account + recurrences
+GET  /slots                             Paginated list
+GET  /slots/:id                         Single slot
+GET  /splits                            Paginated list
+GET  /splits/:id                        Single split with account, transaction, lot
+GET  /taxtable-entries                  Paginated list
+GET  /taxtable-entries/:id              Single taxtable entry with taxtable + account
+GET  /taxtables                         Paginated list
+GET  /taxtables/:id                     Single taxtable with entries + parent
+GET  /transactions                      Paginated list (ordered by post_date)
+GET  /transactions/:id                  Single transaction with currency + splits (with accounts)
+GET  /vendors                           Paginated list
+GET  /vendors/:id                       Single vendor with currency, taxtable, terms
+GET  /versions                          Paginated list (index only)
 ```
+
+**Pagination**: query params `?page=1` (default 50 per page, transactions default 500).
+
+## Database Schema
+
+The schema is the standard GnuCash 5.1 schema. The app uses Lucid ORM models with full relationship mappings (see `app/Models/`). A schema-only reference is at `database/initial_schema.sql`.
+
+Migrations for all 24 tables live in `database/migrations/` and work on PostgreSQL, MySQL, and SQLite. Run:
+
+```sh
+node ace migration:run
+node ace db:seed
+```
+
+## Scripts
+
+```sh
+npm run dev              # node ace serve --watch
+npm run build            # node ace build --production
+npm run test             # node ace test (Japa, functional tests against PostgreSQL)
+npm run lint             # eslint .
+npm run format           # prettier --write .
+```
+
+## Tests
+
+```sh
+# Requires PostgreSQL + Redis
+docker compose up -d db redis
+
+# Run all tests
+npm run test
+
+# Single test file
+npm run test -- --files='resources'
+```
+
+Tests use [Japa](https://japa.dev/) with `@japa/api-client`, Lucid factories, and run migrations on setup. Test config is in `.env.test` (connects to `testing` PG database).
+
+## Docker
+
+```sh
+# Full stack (app + postgres + redis)
+docker compose up --build
+
+# Standalone app with SQLite
+docker build -t gnucash-api gnucash-adonis/
+docker run -e DB_CONNECTION=sqlite -e SQLITE_PATH=/data/gnucash.sqlite gnucash-api
+```
+
+## Architecture
+
+- **Read-only**: controllers expose only `index`/`show`. Create/edit/update/destroy stubs exist but are dead code.
+- **Rate limiting**: via `@adonisjs/limiter` (requires Redis).
+- **Codegen**: TypeScript DB interfaces in `database/Database.ts` are generated from the live schema via `@rmp135/sql-ts` (see `database-typescript-helper/`).
 
 ## License
 

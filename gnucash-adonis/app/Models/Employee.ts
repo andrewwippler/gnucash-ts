@@ -1,4 +1,7 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Account from './Account.js'
+import Commodity from './Commodity.js'
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Employee extends BaseModel {
   @column({ isPrimary: true })
@@ -60,4 +63,16 @@ export default class Employee extends BaseModel {
 
   @column()
   public workday_num: string
+
+  @belongsTo(() => Commodity, {
+    foreignKey: 'currency',
+    localKey: 'guid',
+  })
+  public currencyRel: BelongsTo<typeof Commodity>
+
+  @belongsTo(() => Account, {
+    foreignKey: 'ccard_guid',
+    localKey: 'guid',
+  })
+  public ccardAccount: BelongsTo<typeof Account>
 }

@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import Entry from './Entry.js'
+import { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Order extends BaseModel {
   @column({ isPrimary: true })
@@ -28,4 +30,10 @@ export default class Order extends BaseModel {
 
   @column()
   public reference: string
+
+  @hasMany(() => Entry, {
+    foreignKey: 'order_guid',
+    localKey: 'guid',
+  })
+  public entries: HasMany<typeof Entry>
 }

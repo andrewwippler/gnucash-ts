@@ -13,7 +13,13 @@ export default class CommoditiesController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const commodity = await Commodity.findBy('guid', guid)
+    const commodity = await Commodity.query()
+      .where('guid', guid)
+      .preload('accounts')
+      .preload('pricesAsCommodity')
+      .preload('pricesAsCurrency')
+      .preload('transactions')
+      .first()
     const prettyReturn = { ...commodity?.toJSON() }
     return prettyReturn
   }

@@ -1,6 +1,7 @@
 import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
-import Lot from './Lot.js'
 import Commodity from './Commodity.js'
+import Lot from './Lot.js'
+import Split from './Split.js'
 import { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Account extends BaseModel {
@@ -37,12 +38,6 @@ export default class Account extends BaseModel {
   @column()
   public placeholder: number | null
 
-  @belongsTo(() => Lot, {
-    foreignKey: 'guid',
-    localKey: 'account_guid',
-  })
-  public lot: BelongsTo<typeof Lot>
-
   @belongsTo(() => Commodity, {
     foreignKey: 'commodity_guid',
     localKey: 'guid',
@@ -50,8 +45,8 @@ export default class Account extends BaseModel {
   public commodity: BelongsTo<typeof Commodity>
 
   @belongsTo(() => Account, {
-    foreignKey: 'guid',
-    localKey: 'parent_guid',
+    foreignKey: 'parent_guid',
+    localKey: 'guid',
   })
   public parent: BelongsTo<typeof Account>
 
@@ -60,4 +55,16 @@ export default class Account extends BaseModel {
     localKey: 'guid',
   })
   public accounts: HasMany<typeof Account>
+
+  @hasMany(() => Lot, {
+    foreignKey: 'account_guid',
+    localKey: 'guid',
+  })
+  public lots: HasMany<typeof Lot>
+
+  @hasMany(() => Split, {
+    foreignKey: 'account_guid',
+    localKey: 'guid',
+  })
+  public splits: HasMany<typeof Split>
 }

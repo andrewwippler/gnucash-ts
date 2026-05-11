@@ -1,6 +1,7 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import Account from './Account.js'
-import { HasMany } from '@adonisjs/lucid/types/relations'
+import Split from './Split.js'
+import { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Lot extends BaseModel {
   @column({ isPrimary: true })
@@ -12,6 +13,15 @@ export default class Lot extends BaseModel {
   @column()
   public is_closed: number
 
-  @hasMany(() => Account)
-  public accounts: HasMany<typeof Account>
+  @belongsTo(() => Account, {
+    foreignKey: 'account_guid',
+    localKey: 'guid',
+  })
+  public account: BelongsTo<typeof Account>
+
+  @hasMany(() => Split, {
+    foreignKey: 'lot_guid',
+    localKey: 'guid',
+  })
+  public splits: HasMany<typeof Split>
 }

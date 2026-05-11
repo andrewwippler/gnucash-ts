@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Schedxaction from './Schedxaction.js'
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Recurrence extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +21,10 @@ export default class Recurrence extends BaseModel {
 
   @column()
   public recurrence_weekend_adjust: string
+
+  @belongsTo(() => Schedxaction, {
+    foreignKey: 'obj_guid',
+    localKey: 'guid',
+  })
+  public schedxaction: BelongsTo<typeof Schedxaction>
 }

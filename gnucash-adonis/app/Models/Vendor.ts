@@ -1,4 +1,8 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Billterm from './Billterm.js'
+import Commodity from './Commodity.js'
+import Taxtable from './Taxtable.js'
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Vendor extends BaseModel {
   @column({ isPrimary: true })
@@ -54,4 +58,22 @@ export default class Vendor extends BaseModel {
 
   @column()
   public terms: string | null
+
+  @belongsTo(() => Commodity, {
+    foreignKey: 'currency',
+    localKey: 'guid',
+  })
+  public currencyRel: BelongsTo<typeof Commodity>
+
+  @belongsTo(() => Taxtable, {
+    foreignKey: 'tax_table',
+    localKey: 'guid',
+  })
+  public taxtableRel: BelongsTo<typeof Taxtable>
+
+  @belongsTo(() => Billterm, {
+    foreignKey: 'terms',
+    localKey: 'guid',
+  })
+  public termsRel: BelongsTo<typeof Billterm>
 }

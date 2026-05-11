@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import Commodity from './Commodity.js'
 import Split from './Split.js'
-import { HasMany } from '@adonisjs/lucid/types/relations'
+import { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
@@ -21,6 +22,12 @@ export default class Transaction extends BaseModel {
 
   @column.date()
   public post_date?: DateTime | null
+
+  @belongsTo(() => Commodity, {
+    foreignKey: 'currency_guid',
+    localKey: 'guid',
+  })
+  public currency: BelongsTo<typeof Commodity>
 
   @hasMany(() => Split, {
     foreignKey: 'tx_guid',

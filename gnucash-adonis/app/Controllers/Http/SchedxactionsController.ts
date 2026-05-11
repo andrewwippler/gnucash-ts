@@ -7,13 +7,16 @@ export default class SchedxactionsController {
     const limit = 50
 
     const schedxactions = await Schedxaction.query().paginate(page, limit)
-    // console.log(schedxactions)
     return schedxactions.toJSON()
   }
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const schedxactions = await Schedxaction.findBy('guid', guid)
+    const schedxactions = await Schedxaction.query()
+      .where('guid', guid)
+      .preload('templateAccount')
+      .preload('recurrences')
+      .first()
     const prettyReturn = { ...schedxactions?.toJSON() }
     return prettyReturn
   }

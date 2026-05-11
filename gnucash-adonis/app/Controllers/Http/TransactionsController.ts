@@ -7,7 +7,10 @@ export default class TransactionsController {
     const page = request.input('page', 1)
     const limit = 500
 
-    const transactions = await Transaction.query().orderBy('post_date', 'asc').paginate(page, limit)
+    const transactions = await Transaction.query()
+      .orderBy('post_date', 'asc')
+      .preload('currency')
+      .paginate(page, limit)
     return transactions
   }
 
@@ -15,8 +18,9 @@ export default class TransactionsController {
     const guid = params.id
     const transactions = await Transaction.query()
       .where('guid', guid)
+      .preload('currency')
       .preload('splits', (splitsQuery) => {
-        splitsQuery.preload('account')
+        splitsQuery.preload('account').preload('lot')
       })
       .withCount('splits', (query) => {
         query.as('split_num')

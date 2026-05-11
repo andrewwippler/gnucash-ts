@@ -1,7 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import Account from './Account.js'
+import Billterm from './Billterm.js'
+import Invoice from './Invoice.js'
 import Order from './Order.js'
-import { HasMany } from '@adonisjs/lucid/types/relations'
+import Taxtable from './Taxtable.js'
+import { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Entry extends BaseModel {
   @column({ isPrimary: true })
@@ -97,6 +101,45 @@ export default class Entry extends BaseModel {
   @column()
   public quantity_num: string | null
 
-  @hasMany(() => Order)
-  public orders: HasMany<typeof Order>
+  @belongsTo(() => Order, {
+    foreignKey: 'order_guid',
+    localKey: 'guid',
+  })
+  public order: BelongsTo<typeof Order>
+
+  @belongsTo(() => Invoice, {
+    foreignKey: 'invoice',
+    localKey: 'guid',
+  })
+  public invoiceRel: BelongsTo<typeof Invoice>
+
+  @belongsTo(() => Account, {
+    foreignKey: 'i_acct',
+    localKey: 'guid',
+  })
+  public incomeAccount: BelongsTo<typeof Account>
+
+  @belongsTo(() => Account, {
+    foreignKey: 'b_acct',
+    localKey: 'guid',
+  })
+  public billAccount: BelongsTo<typeof Account>
+
+  @belongsTo(() => Taxtable, {
+    foreignKey: 'i_taxtable',
+    localKey: 'guid',
+  })
+  public incomeTaxtable: BelongsTo<typeof Taxtable>
+
+  @belongsTo(() => Taxtable, {
+    foreignKey: 'b_taxtable',
+    localKey: 'guid',
+  })
+  public billTaxtable: BelongsTo<typeof Taxtable>
+
+  @belongsTo(() => Billterm, {
+    foreignKey: 'bill',
+    localKey: 'guid',
+  })
+  public billterm: BelongsTo<typeof Billterm>
 }

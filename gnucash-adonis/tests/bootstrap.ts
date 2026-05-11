@@ -8,7 +8,7 @@ import testUtils from '@adonisjs/core/services/test_utils'
 export const plugins: Config['plugins'] = [assert(), apiClient(), pluginAdonisJS(app)]
 
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
-  setup: [],
+  setup: [() => testUtils.db().migrate()],
   teardown: [],
 }
 

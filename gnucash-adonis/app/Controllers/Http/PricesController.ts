@@ -13,8 +13,12 @@ export default class PricesController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const prices = await Price.findBy('guid', guid)
-    const prettyReturn = { ...prices?.toJSON() }
+    const price = await Price.query()
+      .where('guid', guid)
+      .preload('commodity')
+      .preload('currency')
+      .first()
+    const prettyReturn = { ...price?.toJSON() }
     return prettyReturn
   }
 

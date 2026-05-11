@@ -13,7 +13,12 @@ export default class VendorsController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const vendor = await Vendor.findBy('guid', guid)
+    const vendor = await Vendor.query()
+      .where('guid', guid)
+      .preload('currencyRel')
+      .preload('taxtableRel')
+      .preload('termsRel')
+      .first()
     const prettyReturn = { ...vendor?.toJSON() }
     return prettyReturn
   }

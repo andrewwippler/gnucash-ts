@@ -9,30 +9,9 @@ import env from '#start/env'
 import { defineConfig } from '@adonisjs/lucid'
 
 const databaseConfig = defineConfig({
-  /*
-  |--------------------------------------------------------------------------
-  | Connection
-  |--------------------------------------------------------------------------
-  |
-  | The primary connection for making database queries across the application
-  | You can use any key from the `connections` object defined in this same
-  | file.
-  |
-  */
   connection: env.get('DB_CONNECTION'),
 
   connections: {
-    /*
-    |--------------------------------------------------------------------------
-    | MySQL config
-    |--------------------------------------------------------------------------
-    |
-    | Configuration for MySQL database. Make sure to install the driver
-    | from npm when using this connection
-    |
-    | npm i mysql2
-    |
-    */
     mysql: {
       client: 'mysql2',
       connection: {
@@ -42,6 +21,33 @@ const databaseConfig = defineConfig({
         password: env.get('MYSQL_PASSWORD', ''),
         database: env.get('MYSQL_DB_NAME'),
       },
+      migrations: {
+        naturalSort: true,
+      },
+      debug: true,
+    },
+
+    pg: {
+      client: 'pg',
+      connection: {
+        host: env.get('PG_HOST'),
+        port: env.get('PG_PORT'),
+        user: env.get('PG_USER'),
+        password: env.get('PG_PASSWORD', ''),
+        database: env.get('PG_DB_NAME'),
+      },
+      migrations: {
+        naturalSort: true,
+      },
+      debug: true,
+    },
+
+    sqlite: {
+      client: 'better-sqlite3',
+      connection: {
+        filename: env.get('SQLITE_PATH'),
+      },
+      useNullAsDefault: true,
       migrations: {
         naturalSort: true,
       },

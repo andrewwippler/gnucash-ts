@@ -7,13 +7,19 @@ export default class EntriesController {
     const limit = 50
 
     const entries = await Entry.query().paginate(page, limit)
-    // console.log(entries)
     return entries.toJSON()
   }
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const entries = await Entry.findBy('guid', guid)
+    const entries = await Entry.query()
+      .where('guid', guid)
+      .preload('order')
+      .preload('invoiceRel')
+      .preload('incomeAccount')
+      .preload('billAccount')
+      .preload('billterm')
+      .first()
     const prettyReturn = { ...entries?.toJSON() }
     return prettyReturn
   }

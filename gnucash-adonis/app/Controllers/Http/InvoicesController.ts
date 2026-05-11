@@ -7,13 +7,19 @@ export default class InvoicesController {
     const limit = 50
 
     const invoices = await Invoice.query().paginate(page, limit)
-    // console.log(invoices)
     return invoices.toJSON()
   }
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const invoices = await Invoice.findBy('guid', guid)
+    const invoices = await Invoice.query()
+      .where('guid', guid)
+      .preload('currencyRel')
+      .preload('postTransaction')
+      .preload('postLot')
+      .preload('postAccount')
+      .preload('entries')
+      .first()
     const prettyReturn = { ...invoices?.toJSON() }
     return prettyReturn
   }

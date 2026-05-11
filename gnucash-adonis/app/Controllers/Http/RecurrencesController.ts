@@ -13,8 +13,8 @@ export default class RecurrencesController {
 
   public async show({ params }: HttpContext) {
     const id = params.id
-    const recurrences = await Recurrence.findBy('id', id)
-    const prettyReturn = { ...recurrences?.toJSON() }
+    const recurrence = await Recurrence.query().where('id', id).preload('schedxaction').first()
+    const prettyReturn = { ...recurrence?.toJSON() }
     return prettyReturn
   }
 

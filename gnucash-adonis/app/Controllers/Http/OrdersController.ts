@@ -13,8 +13,8 @@ export default class OrdersController {
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const orders = await Order.findBy('guid', guid)
-    const prettyReturn = { ...orders?.toJSON() }
+    const order = await Order.query().where('guid', guid).preload('entries').first()
+    const prettyReturn = { ...order?.toJSON() }
     return prettyReturn
   }
 

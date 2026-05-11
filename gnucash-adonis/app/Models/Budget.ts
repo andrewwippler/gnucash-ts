@@ -1,4 +1,6 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import BudgetAmount from './BudgetAmount.js'
+import { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class Budget extends BaseModel {
   @column({ isPrimary: true })
@@ -12,4 +14,10 @@ export default class Budget extends BaseModel {
 
   @column()
   public num_periods: number
+
+  @hasMany(() => BudgetAmount, {
+    foreignKey: 'budget_guid',
+    localKey: 'guid',
+  })
+  public budgetAmounts: HasMany<typeof BudgetAmount>
 }

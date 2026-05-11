@@ -6,14 +6,13 @@ export default class LotsController {
     const page = request.input('page', 1)
     const limit = 50
 
-    const lots = await Lot.query().paginate(page, limit)
-    // console.log(lots)
+    const lots = await Lot.query().preload('account').paginate(page, limit)
     return lots.toJSON()
   }
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const lots = await Lot.findBy('guid', guid)
+    const lots = await Lot.query().where('guid', guid).preload('account').preload('splits').first()
     const prettyReturn = { ...lots?.toJSON() }
     return prettyReturn
   }

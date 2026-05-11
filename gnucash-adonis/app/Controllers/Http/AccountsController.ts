@@ -11,15 +11,19 @@ export default class AccountsController {
       .preload('accounts', (builder) => {
         builder.orderBy('name', 'asc')
       })
-      .preload('lot')
       .preload('commodity')
+      .preload('lots')
       .paginate(page, limit)
     return accounts.toJSON()
   }
 
   public async show({ params }: HttpContext) {
     const guid = params.id
-    const account = await Account.query().where('guid', guid).preload('lot').preload('commodity')
+    const account = await Account.query()
+      .where('guid', guid)
+      .preload('commodity')
+      .preload('lots')
+      .preload('splits')
     //@ts-ignore
     const prettyReturn = { ...account[0].toJSON(), full_path: await getParent(account[0]) }
     return prettyReturn
